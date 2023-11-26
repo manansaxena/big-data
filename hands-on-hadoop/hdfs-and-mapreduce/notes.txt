@@ -1,0 +1,10 @@
+Things to remember : 
+1) Some of the commands used are altered to make it run on the Hortonworks Sandbox.
+2) Always use yield instead of return when writing mapper and reducer functions. The reason is that we need an iterator to iterate over the stream of data we would be getting.
+3) To run on local machine just use the following command :
+    python RatingsBreakdown.py ratings.data
+4) To run on a hadoop cluster:
+    python RatingsBreakdown.py -r hadoop --hadoop-streaming-jar /usr/hdp/current/hadoop-mapresuce-client/hadoop-streaming.jar ratings.data
+5) yield doesn't have a count function
+6) when we apply a second reducer, it itseld shuffles and sorts. But since each reduces only has access to certain partition, still the overall order might be different. And it gets sorted based 
+on the keys
