@@ -1,0 +1,15 @@
+1) It runs over MapReduce and Tez. Its a SQL-like language where you don't need to write explicit mappers and reducers. But its a procedural language
+2) The language used is called pig-latin
+3) Need to define the schema while loading the table itself
+4) By default, pig considers the data being loaded is tab separated
+5) Things that can be done to a relation
+    - LOAD STORE DUMP
+        - STORE ratings INTO 'outRatings' USING PigStorage(':');
+    - FILTER DISTINCT FOREACH/GENERATE(to create a new relation from an old one) MAPREDUCE STREAM(stream the results of Pig out to a process and use std in and out) SAMPLE(create a random sample)
+    - JOIN COGROUP GROUP CROSS(Cartesian Products) CUBE(all the possible combinations between multiple columns)
+    - ORDER RANK(assigns a rank to each row) LIMIT(get a few n rows)
+    - UNION SPLIT
+    - DESCRIBE EXPLAIN(tells how the query would be executed) ILLUSTRATE(actually takes a sample from the relation and shows you how the query would be done)
+    - REGISTER DEFINE IMPORT
+    - AVG CONCAT COUNT MAX MIN SIZE SUM
+    - PigStorage, textLoader, JsonLoader, AvroStorage, ParquetLoader, OrcStorage, HBaseStorage 

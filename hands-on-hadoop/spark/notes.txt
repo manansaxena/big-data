@@ -1,0 +1,54 @@
+1) Built around one main concept: Resilient Distributed Dataset(RDD)
+2) Spark Core
+    - Spark Streaming, Spark SQL, MLLib, GraphX
+3) RDD is an abstraction, making sure your job is evenly distributed across your cluster that it can handle failuers in a resilient manner
+4) SparkContext
+    - created by your driver program
+    - responsible for making RDD's resilient and distributed
+    - Creates the RDD's 
+    - Spark sheel creates the "sc" for us
+5) RDD's can be formed in numerous ways in spark. It supports most big data storing platforms
+6) Transforming RDD
+    - map : one to one mapping
+    - flatmap : any type of mapping
+    - filter : filter out teh needed rows
+    - distinct : get the distinct rows 
+    - sample : get a random sample of rows from your RDD
+    - Combination methods : union, intersection, subtract, cartesian 
+7) map example:
+    rdd = sc.parallelize([1,2,3,4])
+    squareRDD = rdd.map(lambda x: x**2)
+8) some RDD actions:
+    - collect, count, countByValues, take, top, reduce
+9) Nothing happends in the driver program until an action is called
+10) Use spark-submit to run the python file
+
+Spark2.0
+1) Extends the RDD to a DataFrame object
+2) DataFrames:
+    - Contain Row Objects
+    - Can run SQL queries
+    - Has a schema
+    - Read and write to JSON, Hive, Parquet
+    - Communications with JDBC/ODBC, Tableau
+3) DataSets vs DataFrame
+    From ChatGPT:
+        Key Differences:
+        Type Safety: DataFrames are dynamically typed, whereas DataSets are statically typed and provide compile-time type safety. 
+                     This means syntax and analysis errors are detected at compile time in DataSets, leading to safer code.
+        API Usability: DataFrames offer a simpler API and are easier to work with for people familiar with SQL and data analysis. 
+                       DataSets, being strongly-typed, are more suitable for software engineers familiar with static typing.
+        Performance: For Scala and Java applications, using DataSets can offer the best of both worlds: the performance benefits of DataFrames 
+                     (due to Spark's optimized execution engine) and the type safety of RDDs.
+        Usage in Different Languages: In Python and R, the concept of DataSets is not explicitly used due to the dynamic typing nature of these languages. 
+                                      The DataFrame API is the primary interface.
+4) User-defined functions can be created and then plugged into sql queries
+    # Define and Register UDF
+    def add_age(age, increment):
+        return age + increment
+    add_age_udf = udf(add_age, IntegerType())
+    spark.udf.register("addAgeUDF", add_age_udf)
+
+    # Use UDF in SQL Query
+    result = spark.sql("SELECT name, addAgeUDF(age, 5) as new_age FROM people")
+    result.show()
